@@ -186,9 +186,14 @@ Then add the dependency in your `app/build.gradle`:
 ```groovy
 dependencies {
 	// …
-	implementation 'com.github.kurzdigital:vds:1.0.0'
+	implementation ('com.github.kurzdigital:vds-jvm:1.0.0', {
+		exclude group:'org.json', module:'json'
+	})
 }
 ```
+
+The `json` module needs to be excluded because Android already contains
+the JSON classes.
 
 [vds]: https://visibledigitalseal.org/
 [zxing]: https://github.com/zxing/zxing
