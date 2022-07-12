@@ -4,19 +4,30 @@ Parse and verify a [Visible Digital Seal][vds] or VDS-NC (Non-Constrained).
 
 ## How to use
 
-### Decode the barcode
+### Reading the barcode
 
-Reading a barcode is not part of this library.
+Reading a barcode is not part of this library. Here are a few options:
 
-You can use the [ZXing][zxing] barcode library to decode a barcode and use
-the read contents with this library.
+#### Google Code Scanner on Android
+
+On Android, you can use the [Google Code Scanner][codescanner] from ML Kit.
+
+#### Google ML Kit
+
+If you want more control over the scanning process, you can use ML Kit's
+[barcode scanning API][vision] on Android and/or iOS.
+
+#### ZXing
+
+For everything on the JVM, you might want to use the [ZXing][zxing]
+barcode scanning library.
 
 **Note**: VDS DataMatrix barcodes contain binary data. To extract the raw
-byte array from a [Result][result] object, the `BYTE_SEGMENTS` need to be
-appended manually. Unfortunately, [Result.getRawBytes()][getrawbytes] cannot
+byte array from a ZXing [Result][result] object, the `BYTE_SEGMENTS` need to
+be appended manually. Unfortunately, [Result.getRawBytes()][getrawbytes] cannot
 be used because it returns the raw encoded data, not the payload in it.
 
-Here's a sample of how to do it in Kotlin:
+Here's how to do it in Kotlin:
 
 ```kotlin
 import com.google.zxing.Result
@@ -39,6 +50,13 @@ fun Result.getRawData(): ByteArray? {
 	return if (bytes.size >= text.length) bytes else null
 }
 ```
+
+#### ZXing C++ fork
+
+For other platforms, there is an excellent [C++ fork][zxingcpp] of the ZXing
+library that runs on a variety of systems.
+
+Including [Android][barcodescannerview].
 
 ### Parse the barcode contents
 
@@ -196,6 +214,10 @@ The `json` module needs to be excluded because Android already contains
 the JSON classes.
 
 [vds]: https://visibledigitalseal.org/
+[codescanner]: https://developers.google.com/ml-kit/code-scanner
+[vision]: https://developers.google.com/ml-kit/vision/barcode-scanning
 [zxing]: https://github.com/zxing/zxing
 [result]: https://zxing.github.io/zxing/apidocs/com/google/zxing/Result.html
 [getrawbytes]: https://zxing.github.io/zxing/apidocs/com/google/zxing/Result.html#getRawBytes--
+[zxingcpp]: https://github.com/nu-book/zxing-cpp
+[barcodescannerview]: https://github.com/markusfisch/BarcodeScannerView
