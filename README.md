@@ -185,7 +185,7 @@ class VdsDecoder {
 
 ## How to include
 
-### Android with Gradle
+### Gradle
 
 Add the JitPack repository to your root `build.gradle` at the end of
 repositories:
@@ -210,8 +210,31 @@ dependencies {
 }
 ```
 
-The `json` module needs to be excluded because Android already contains
-the JSON classes.
+**Note**: The `json` module needs to be excluded on Android because Android
+already contains the JSON classes.
+
+### Maven
+
+Add the JitPack repository to your `pom.xml`:
+
+```xml
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+Add the dependency:
+
+```xml
+	<dependency>
+		<groupId>com.github.kurzdigital</groupId>
+		<artifactId>vds-jvm</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+```
 
 [vds]: https://visibledigitalseal.org/
 [codescanner]: https://developers.google.com/ml-kit/code-scanner
