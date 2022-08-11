@@ -88,6 +88,7 @@
 				</executions>
 				<configuration>
 					<args>
+						<!-- Required to make it work with Maven builds. -->
 						<arg>-Xno-optimized-callable-references</arg>
 					</args>
 				</configuration>
