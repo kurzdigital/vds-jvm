@@ -86,6 +86,11 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<args>
+						<arg>-Xno-optimized-callable-references</arg>
+					</args>
+				</configuration>
 			</plugin>
 
 			<plugin>
