@@ -15,6 +15,7 @@ import com.kurzdigital.vds.vds.message.mapSupervisedAntigenTest
 import com.kurzdigital.vds.vds.message.mapSupplementSheet
 import com.kurzdigital.vds.vds.message.mapTaxStamp
 import com.kurzdigital.vds.vds.message.mapVaccinationCertificate
+import com.kurzdigital.vds.vds.message.mapVehicleVignette
 import com.kurzdigital.vds.vds.message.mapVisa
 import java.nio.ByteBuffer
 
@@ -60,6 +61,7 @@ private fun VdsHeader.getMapper():
     0x7A01 -> Pair(VdsType.TAX_STAMP, ::mapTaxStamp)
     0x7B01 -> Pair(VdsType.PHARMAPACK, ::mapPharmapack)
     0x7C01 -> Pair(VdsType.GENERAL_PURPOSE, ::mapGeneralPurpose)
+    0x7D01 -> Pair(VdsType.VEHICLE_VIGNETTE, ::mapVehicleVignette)
     0xF80A -> Pair(VdsType.ADDRESS_STICKER_GERMAN_PASSPORT, ::mapAddressStickerGermanPassport)
     0xF908 -> Pair(VdsType.ADDRESS_STICKER_GERMAN_ID_CARD, ::mapAddressStickerGermanIDCard)
     0xFA06 -> Pair(VdsType.SUPPLEMENT_SHEET, ::mapSupplementSheet)

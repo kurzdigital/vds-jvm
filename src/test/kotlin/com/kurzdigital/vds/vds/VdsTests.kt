@@ -24,6 +24,7 @@ class VdsTests {
             "KDS_ETD.crt",
             "KDS_TAXSTAMPS.crt",
             "KDS_TEST_VACC.crt",
+            "KDS_VEHICLE_VIGNETTE.crt",
             "sealgen_UTTS5B.crt"
         ).forEach {
             certificates.add(
@@ -187,6 +188,21 @@ class VdsTests {
         assertEquals("Value 2️⃣", vds.messages["Header 2️⃣"])
         assertEquals("www.kurzdigital.com", vds.messages["BlaBliBlu Header"])
         assertEquals("", vds.messages[""])
+        assertEquals(true, vds.verify())
+    }
+
+    @Test
+    fun vehicleVignette() {
+        val vds = readAndParse("vds_sample_vehicle_vignette")
+        assertNotNull(vds)
+        assertEquals(
+            "Fri Mar 01 00:00:00 CET 2024",
+            vds.messages[Label.EXPIRATION_DATE].toString()
+        )
+        assertEquals("OVD 123 KD", vds.messages[Label.CAR_LICENSE_PLATE])
+        assertEquals("Ford Ranger", vds.messages[Label.CAR_MODEL])
+        assertEquals("White", vds.messages[Label.CAR_COLOR])
+        assertEquals("Taban Sibonelo", vds.messages[Label.OWNER])
         assertEquals(true, vds.verify())
     }
 
