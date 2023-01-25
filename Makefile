@@ -1,2 +1,5 @@
 all:
-	mvn clean package ktlint:check
+	mvn package ktlint:check
+
+clean:
+	mvn clean
