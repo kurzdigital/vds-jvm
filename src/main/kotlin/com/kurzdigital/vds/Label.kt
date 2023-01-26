@@ -5,6 +5,7 @@ enum class Label {
     ARZ,
     BATCH_NUMBER,
     BEST_BEFORE,
+    BIOMETRICS,
     BIRTH_NAME,
     CAR_COLOR,
     CAR_LICENSE_PLATE,

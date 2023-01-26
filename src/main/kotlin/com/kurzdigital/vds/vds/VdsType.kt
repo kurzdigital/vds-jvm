@@ -3,6 +3,7 @@ package com.kurzdigital.vds.vds
 enum class VdsType {
     VISA,
     EMERGENCY_TRAVEL,
+    EMERGENCY_TRAVEL_WITH_BIO,
     SUPERVISED_ANTIGEN_TEST,
     VACCINATION_CERTIFICATE,
     TAX_STAMP,

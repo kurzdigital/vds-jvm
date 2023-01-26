@@ -21,6 +21,7 @@ class VdsTests {
         val cf = CertificateFactory.getInstance("X.509")
         listOf(
             "KDS_DEV_VDS_01.crt",
+            "KDS_EasyCard_VDS.crt",
             "KDS_ETD.crt",
             "KDS_TAXSTAMPS.crt",
             "KDS_TEST_VACC.crt",
@@ -66,6 +67,24 @@ class VdsTests {
         assertEquals(
             "I<GBR6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6SUPAMANN<<MARY<<<<<<<<<<<<<<<<",
             vds.messages[Label.MRZ].toString()
+        )
+        assertEquals(true, vds.verify())
+    }
+
+    @Test
+    fun emergencyTravelWithBio() {
+        val vds = readAndParse("vds_sample_emergency_travel_with_bio")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "I<UTO6525845096<<<<<<<<<<<<<<<9507188M2402099USA<<<<<<<<<<<0SMITH<<JOHN<<<<<<<<<<<<<<<<<<<",
+            vds.messages[Label.MRZ].toString()
+        )
+        assertEquals(
+            "W5d5Y22FWGGiU6V7NVVykFZZfmqUZ3qDRyhhYHhSXWpLbWeNc3Kgc1BpcbWhhXlrkTaikZl1h01rn0yLf2hodLWVSWikY3l6Wz4rlNGmQ3VhepKJYHNghpJ5aK55h3aKXG9Sc4hqdqNOjHtvfX5PV40yjJ2DnJOEkF9Hb4xvh4A=",
+            java.util.Base64.getEncoder().encodeToString(
+                vds.messages[Label.BIOMETRICS] as ByteArray
+            )
         )
         assertEquals(true, vds.verify())
     }
