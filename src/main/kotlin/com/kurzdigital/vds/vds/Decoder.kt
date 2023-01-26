@@ -36,7 +36,7 @@ private fun ByteBuffer.readVds(): Vds {
     while (true) {
         val pos = position()
         val tag = get()
-        val value = getByteArray(get().toInt())
+        val value = getByteArray(get().toUByte().toInt())
         if (tag == 0xff.toByte()) {
             rewind()
             val (id, mapper) = header.getMapper()
