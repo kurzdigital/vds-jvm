@@ -13,6 +13,12 @@ fun Map<Any, Any?>.labelStringPairs() = mutableListOf<Pair<Any, Any>>().also {
             null -> Unit
             is MrzInfo -> it.addAll((entry.value as MrzInfo).toMap().toList())
             is Date -> it.add(Pair(entry.key, (entry.value as Date).format()))
+            is ByteArray -> it.add(
+                Pair(
+                    entry.key,
+                    (entry.value as ByteArray).toHexString()
+                )
+            )
             else -> it.add(Pair(entry.key, entry.value.toString()))
         }
     }
@@ -44,3 +50,5 @@ private fun Date.format() = java.text.DateFormat.getDateTimeInstance(
     java.text.DateFormat.LONG,
     java.text.DateFormat.LONG
 ).format(this)
+
+private fun ByteArray.toHexString() = joinToString("") { "%02X".format(it) }
