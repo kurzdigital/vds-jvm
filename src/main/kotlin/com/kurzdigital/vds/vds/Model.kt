@@ -13,7 +13,8 @@ data class Vds(
 data class VdsHeader(
     val version: Byte,
     val countryId: String,
-    val signerAndCertificateReference: ByteArray,
+    val signerIdentifier: String,
+    val certificateReference: String,
     val documentIssueDate: Date?,
     val signatureCreationDate: Date?,
     val docFeatureDefRef: Byte,

@@ -76,7 +76,8 @@ private fun VdsHeader.getMapper():
 private fun ByteBuffer.readHeader() = VdsHeader(
     version = get(),
     countryId = getByteArray(2).decodeC40(),
-    signerAndCertificateReference = getByteArray(6),
+    signerIdentifier = getByteArray(4).decodeC40(),
+    certificateReference = getByteArray(2).decodeC40(),
     documentIssueDate = getDateFromUInt24(),
     signatureCreationDate = getDateFromUInt24(),
     docFeatureDefRef = get(),
