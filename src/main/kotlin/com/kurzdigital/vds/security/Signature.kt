@@ -8,6 +8,9 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.PublicKey
 import java.security.Signature
+import java.security.cert.Certificate
+import java.security.cert.X509Certificate
+import java.util.Date
 
 fun ByteArray.sha256(): ByteArray = MessageDigest.getInstance("SHA-256").run {
     update(this@sha256)
@@ -17,11 +20,14 @@ fun ByteArray.sha256(): ByteArray = MessageDigest.getInstance("SHA-256").run {
 fun verify(
     certificateIterator: CertificateIterator,
     sha256: ByteArray,
-    signature: ByteArray
+    signature: ByteArray,
+    date: Date = Date()
 ): Boolean {
     while (true) {
         val certificate = certificateIterator.next() ?: break
-        if (verify(certificate.publicKey, sha256, signature)) {
+        if (certificate.validAt(date) &&
+            verify(certificate.publicKey, sha256, signature)
+        ) {
             return true
         }
     }
@@ -46,6 +52,9 @@ fun verify(
     // malformed or even hostile data could not be decoded.
     false
 }
+
+fun Certificate.validAt(date: Date) = this !is X509Certificate ||
+    !(date.before(notBefore) || date.after(notAfter))
 
 fun ByteArray.concatenatedRSToASN1DER(): ByteArray {
     val len = size / 2
