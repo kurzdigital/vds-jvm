@@ -9,5 +9,4 @@ fun mapEmergencyTravelWithBio(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>
             ?: throw IllegalArgumentException("Missing MRZ")
         ),
     Label.BIOMETRICS to messages[3]
-        ?: throw IllegalArgumentException("Missing biometrics")
 )
