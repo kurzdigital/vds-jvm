@@ -24,11 +24,9 @@ import java.security.cert.X509CertSelector
 import java.security.cert.X509Certificate
 import java.util.Date
 
-fun InputStream.readCscaMasterList() = HashSet<TrustAnchor>().apply {
-    CertificateFactory.getInstance("X.509", provider).let {
-        addAll(getTrustedCertificates(it))
-    }
-}
+fun InputStream.readCscaMasterList() = getTrustedCertificates(
+    CertificateFactory.getInstance("X.509", provider)
+).toSet()
 
 fun Set<TrustAnchor>.verifyDocumentCertificate(
     certificate: Certificate
