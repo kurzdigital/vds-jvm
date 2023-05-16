@@ -1,5 +1,6 @@
 package com.kurzdigital.vds.vds
 
+import java.io.Serializable
 import java.util.Date
 
 data class Vds(
@@ -8,7 +9,7 @@ data class Vds(
     val messages: Map<Any, Any?>,
     val sha256: ByteArray,
     val signature: ByteArray
-)
+) : Serializable
 
 data class VdsHeader(
     val version: Byte,
@@ -21,4 +22,4 @@ data class VdsHeader(
     val docTypeCategory: Byte,
     val id: Int = (docFeatureDefRef.toUByte().toInt() shl 8) or
         docTypeCategory.toUByte().toInt()
-)
+) : Serializable
