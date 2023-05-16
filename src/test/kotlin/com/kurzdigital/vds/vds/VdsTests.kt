@@ -20,7 +20,6 @@ class VdsTests {
         }
         val cf = CertificateFactory.getInstance("X.509")
         listOf(
-            "KDS_DEV_VDS_01.crt",
             "KDS_EasyCard_VDS.crt",
             "KDS_ETD.crt",
             "KDS_TAXSTAMPS.crt",
