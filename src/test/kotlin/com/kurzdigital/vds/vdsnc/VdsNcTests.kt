@@ -19,8 +19,8 @@ class VdsNcTests {
         }
         trustAnchors = ByteArrayInputStream(
             ClassLoader.getSystemResource(
-                "20230831_DEMasterList.ml"
-            ).readBytes()
+                "20230831_DEMasterList.ml",
+            ).readBytes(),
         ).readCscaMasterList()
     }
 
@@ -42,7 +42,7 @@ class VdsNcTests {
         assertEquals(
             // The certificate is unknown because this is just a sample.
             VerificationResult.SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN,
-            vdsNc.verify(trustAnchors!!)
+            vdsNc.verify(trustAnchors!!),
         )
     }
 
@@ -71,7 +71,7 @@ class VdsNcTests {
         assertEquals(
             // The certificate is unknown because this is just a sample.
             VerificationResult.SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN,
-            vdsNc.verify(trustAnchors!!)
+            vdsNc.verify(trustAnchors!!),
         )
     }
 
@@ -94,13 +94,13 @@ class VdsNcTests {
         assertEquals("General Practitioner", vdsNc.messages[10].second)
         assertEquals(
             VerificationResult.SIGNATURE_VALID,
-            vdsNc.verify(trustAnchors!!)
+            vdsNc.verify(trustAnchors!!),
         )
     }
 
     private fun readAndParse(
-        name: String
+        name: String,
     ) = ClassLoader.getSystemResource(
-        name
+        name,
     ).readText().decodeVdsNc()
 }

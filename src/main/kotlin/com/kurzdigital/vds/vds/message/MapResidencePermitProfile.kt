@@ -12,5 +12,5 @@ fun mapResidencePermitProfile(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>
     Label.PASSPORT_NUMBER to (
         messages[3]?.decodeC40()
             ?: throw IllegalArgumentException("Missing passport number")
-        )
+        ),
 )

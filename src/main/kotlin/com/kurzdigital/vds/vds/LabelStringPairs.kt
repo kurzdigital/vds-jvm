@@ -22,16 +22,16 @@ fun Map<Any, Any?>.labelStringPairs() = mutableListOf<Pair<Any, Any>>().also {
                     Pair(
                         entry.key,
                         Base64.getEncoder().encodeToString(
-                            entry.value as ByteArray
-                        )
-                    )
+                            entry.value as ByteArray,
+                        ),
+                    ),
                 )
             } else {
                 it.add(
                     Pair(
                         entry.key,
-                        (entry.value as ByteArray).toHexString()
-                    )
+                        (entry.value as ByteArray).toHexString(),
+                    ),
                 )
             }
             else -> it.add(Pair(entry.key, entry.value.toString()))
@@ -46,13 +46,13 @@ private fun MrzInfo.toMap() = mapOf(
     Label.DATE_OF_EXPIRY to dateOfExpiry.reformatMrzDate(),
     Label.DOCUMENT_NUMBER to documentNumber,
     Label.ISSUING_STATE to issuingState,
-    Label.NATIONALITY to nationality
+    Label.NATIONALITY to nationality,
 )
 
 private fun String.reformatMrzDate() = try {
     SimpleDateFormat("yyMMdd", Locale.US).parse(this)?.let {
         java.text.DateFormat.getDateInstance(
-            java.text.DateFormat.SHORT
+            java.text.DateFormat.SHORT,
         ).format(it)
     } ?: this
 } catch (e: IllegalArgumentException) {
@@ -63,7 +63,7 @@ private fun String.reformatMrzDate() = try {
 
 private fun Date.format() = java.text.DateFormat.getDateTimeInstance(
     java.text.DateFormat.LONG,
-    java.text.DateFormat.LONG
+    java.text.DateFormat.LONG,
 ).format(this)
 
 private fun ByteArray.toHexString() = joinToString("") { "%02X".format(it) }

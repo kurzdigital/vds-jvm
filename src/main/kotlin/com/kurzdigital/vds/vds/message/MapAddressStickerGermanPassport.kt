@@ -15,5 +15,5 @@ fun mapAddressStickerGermanPassport(messages: Map<Byte, ByteArray>) = mapOf<Any,
     Label.POSTAL_CODE to (
         messages[3]?.decodeC40()
             ?: throw IllegalArgumentException("Missing postal code")
-        )
+        ),
 )

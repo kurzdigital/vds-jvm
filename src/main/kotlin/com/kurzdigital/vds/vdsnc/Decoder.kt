@@ -24,7 +24,7 @@ fun String.decodeVdsNc(): VdsNc {
     val vdsNcHeader = VdsNcHeader(
         header.getString("is"),
         header.getString("t"),
-        header.getInt("v")
+        header.getInt("v"),
     )
     val msg = data.getJSONObject("msg")
     val messages: List<Pair<Any, Any>>
@@ -41,18 +41,18 @@ fun String.decodeVdsNc(): VdsNc {
         messages,
         data.toString().canonicalizedJson().toByteArray().sha256(),
         signature.getString(
-            "sigvl"
+            "sigvl",
         ).decodeUrlSafeBase64().concatenatedRSToASN1DER(),
         CertificateFactory.getInstance(
             "X.509",
-            provider
+            provider,
         ).generateCertificate(
             ByteArrayInputStream(
                 signature.getString(
-                    "cer"
-                ).decodeUrlSafeBase64()
-            )
-        )
+                    "cer",
+                ).decodeUrlSafeBase64(),
+            ),
+        ),
     )
 }
 

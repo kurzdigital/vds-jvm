@@ -8,5 +8,5 @@ fun mapEmergencyTravelWithBio(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>
         messages[2]?.decodeC40Td2()
             ?: throw IllegalArgumentException("Missing MRZ")
         ),
-    Label.BIOMETRICS to messages[3]
+    Label.BIOMETRICS to messages[3],
 )

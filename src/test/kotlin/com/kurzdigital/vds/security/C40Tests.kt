@@ -15,8 +15,8 @@ class C40Tests {
                 0xc8, 0x95, 0xdd, 0xb0,
                 0x17, 0xfe, 0x71, 0x12,
                 0x5d, 0xbf, 0x15, 0x85,
-                0xfe, 0x48
-            ).decodeC40()
+                0xfe, 0x48,
+            ).decodeC40(),
         )
     }
 
@@ -30,8 +30,8 @@ class C40Tests {
                 0xe7, 0xd0, 0xd8, 0xae,
                 0xc8, 0x95, 0xdd, 0xb0,
                 0x17, 0xfe, 0x71, 0x12,
-                0x5d, 0xbf, 0x15, 0x85
-            ).decodeC40()
+                0x5d, 0xbf, 0x15, 0x85,
+            ).decodeC40(),
         )
     }
 
@@ -49,8 +49,8 @@ class C40Tests {
                 0xc8, 0x95, 0xdd, 0xb0,
                 0x17, 0xfe, 0x71, 0x12,
                 0x5d, 0xbf, 0xfe, 0x21,
-                0x45
-            ).decodeC40()
+                0x45,
+            ).decodeC40(),
         )
     }
 
@@ -59,7 +59,7 @@ class C40Tests {
         // Just one character. Again, padded with 0xfe.
         assertEquals(
             "A",
-            byteArrayOfInts(0xfe, 0x42).decodeC40()
+            byteArrayOfInts(0xfe, 0x42).decodeC40(),
         )
     }
 
@@ -70,8 +70,8 @@ class C40Tests {
             byteArrayOfInts(
                 0x58, 0x4f, 0x2e, 0x21,
                 0x65, 0x73, 0x6c, 0x0b,
-                0x4d, 0x0d, 0xfe, 0x47
-            ).decodeC40()
+                0x4d, 0x0d, 0xfe, 0x47,
+            ).decodeC40(),
         )
     }
 }

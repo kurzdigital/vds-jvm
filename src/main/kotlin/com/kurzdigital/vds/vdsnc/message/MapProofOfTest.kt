@@ -16,6 +16,6 @@ fun mapProofOfTest(msg: JSONObject): List<Pair<Any, Any>> {
         Pair(Label.DATE_OF_SAMPLING, dates.getString("sc")),
         Pair(Label.TEST_METHOD, testResult.getString("m")),
         Pair(Label.TEST_RESULT, testResult.getString("r")),
-        Pair(Label.TEST_CATEGORY, testResult.getString("tc"))
+        Pair(Label.TEST_CATEGORY, testResult.getString("tc")),
     )
 }

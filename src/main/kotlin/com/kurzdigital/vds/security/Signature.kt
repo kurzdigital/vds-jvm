@@ -21,7 +21,7 @@ fun verify(
     certificateIterator: CertificateIterator,
     sha256: ByteArray,
     signature: ByteArray,
-    date: Date = Date()
+    date: Date = Date(),
 ): Boolean {
     while (true) {
         val certificate = certificateIterator.next() ?: break
@@ -37,7 +37,7 @@ fun verify(
 fun verify(
     publicKey: PublicKey,
     sha256: ByteArray,
-    signature: ByteArray
+    signature: ByteArray,
 ): Boolean = try {
     Signature.getInstance("NONEwithECDSA", provider).run {
         initVerify(publicKey)

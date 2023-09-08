@@ -12,5 +12,5 @@ fun mapSupplementSheet(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.SHEET_NUMBER to (
         messages[5]?.decodeC40()
             ?: throw IllegalArgumentException("Missing sheet number")
-        )
+        ),
 )

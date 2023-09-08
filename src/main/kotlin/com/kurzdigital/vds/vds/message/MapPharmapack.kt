@@ -16,5 +16,5 @@ fun mapPharmapack(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.CONTACT_DETAILS_ADDRESS to messages.getString(0xa),
     Label.CONTACT_DETAILS_PHONE to messages.getString(0xb),
     Label.CONTACT_DETAILS_EMAIL to messages.getString(0xc),
-    Label.CONTACT_DETAILS_WEBSITE to messages.getString(0xd)
+    Label.CONTACT_DETAILS_WEBSITE to messages.getString(0xd),
 )

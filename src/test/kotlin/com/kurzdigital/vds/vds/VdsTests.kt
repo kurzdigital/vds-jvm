@@ -25,14 +25,14 @@ class VdsTests {
             "KDS_TAXSTAMPS.crt",
             "KDS_TEST_VACC.crt",
             "KDS_VEHICLE_VIGNETTE.crt",
-            "sealgen_UTTS5B.crt"
+            "sealgen_UTTS5B.crt",
         ).forEach {
             certificates.add(
                 cf.generateCertificate(
                     ByteArrayInputStream(
-                        ClassLoader.getSystemResource(it).readBytes()
-                    )
-                )
+                        ClassLoader.getSystemResource(it).readBytes(),
+                    ),
+                ),
             )
         }
     }
@@ -44,15 +44,15 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "Wed Jan 01 00:00:00 CET 2020",
-            vds.header.documentIssueDate.toString()
+            vds.header.documentIssueDate.toString(),
         )
         assertEquals(
             "Thu Apr 01 00:00:00 CEST 2021",
-            vds.header.signatureCreationDate.toString()
+            vds.header.signatureCreationDate.toString(),
         )
         assertEquals(
             "MED<<6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6MANNSENS<<MANNY<<<<<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals("ABC123456DEF", vds.messages[Label.ARZ])
         assertEquals(true, vds.verify())
@@ -65,7 +65,7 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "I<GBR6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6SUPAMANN<<MARY<<<<<<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals(true, vds.verify())
     }
@@ -77,13 +77,13 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "I<UTO6525845096<<<<<<<<<<<<<<<9507188M2402099USA<<<<<<<<<<<0SMITH<<JOHN<<<<<<<<<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals(
             "W5d5Y22FWGGiU6V7NVVykFZZfmqUZ3qDRyhhYHhSXWpLbWeNc3Kgc1BpcbWhhXlrkTaikZl1h01rn0yLf2hodLWVSWikY3l6Wz4rlNGmQ3VhepKJYHNghpJ5aK55h3aKXG9Sc4hqdqNOjHtvfX5PV40yjJ2DnJOEkF9Hb4xvh4A=",
             java.util.Base64.getEncoder().encodeToString(
-                vds.messages[Label.BIOMETRICS] as ByteArray
-            )
+                vds.messages[Label.BIOMETRICS] as ByteArray,
+            ),
         )
         assertEquals(true, vds.verify())
     }
@@ -95,7 +95,7 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "ATD<<6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6RESIDORCE<<ROLAND<<<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals("UFO001979", vds.messages[Label.PASSPORT_NUMBER])
         assertEquals(true, vds.verify())
@@ -120,7 +120,7 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "ATD<<6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6RESIDORCE<<ROLAND<<<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals("PA0000005", vds.messages[Label.SHEET_NUMBER])
         // This signature is intentionally invalid.
@@ -136,7 +136,7 @@ class VdsTests {
         assertEquals("05314000", vds.messages[Label.MUNICIPALITY_NUMBER])
         assertEquals(
             "53175HEINEMANNSTR11",
-            vds.messages[Label.RESIDENTIAL_ADDRESS]
+            vds.messages[Label.RESIDENTIAL_ADDRESS],
         )
         assertEquals(true, vds.verify())
     }
@@ -159,7 +159,7 @@ class VdsTests {
         assertEquals("UTO", vds.header.countryId)
         assertEquals(
             "VCD<<1234567XY7<<<<<<<<<<<<<<<5203116M2005250GBR<<<<<<<<<<<4DENT<<ARTHUR<PHILIP<<<<<<<<<<<",
-            vds.messages[Label.MRZ].toString()
+            vds.messages[Label.MRZ].toString(),
         )
         assertEquals(2, (vds.messages[Label.NUMBER_OF_ENTRIES] as Byte).toInt())
         assertEquals(5898240, vds.messages[Label.DURATION_OF_STAY])
@@ -177,7 +177,7 @@ class VdsTests {
         assertEquals("Max", vds.messages[Label.GIVEN_NAME])
         assertEquals(
             "Fri Mar 28 00:00:00 CET 1997",
-            vds.messages[Label.DATE_OF_BIRTH].toString()
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
         )
         assertEquals("Germany", vds.messages[Label.RESIDENCE])
         assertEquals("PA", vds.messages[Label.TYPE_OF_ID])
@@ -188,11 +188,11 @@ class VdsTests {
         assertEquals("SARS-CoV-2", vds.messages[Label.VACCINATED_DISEASE])
         assertEquals(
             "Dr. John Doe; Schwabacher Str. 106, 90763 Fürth, Germany",
-            vds.messages[Label.DOCTOR]
+            vds.messages[Label.DOCTOR],
         )
         assertEquals(
             "Thu Jan 20 11:38:00 CET 2022",
-            vds.messages[Label.TIMESTAMP].toString()
+            vds.messages[Label.TIMESTAMP].toString(),
         )
         assertEquals(true, vds.verify())
     }
@@ -215,7 +215,7 @@ class VdsTests {
         assertNotNull(vds)
         assertEquals(
             "Fri Mar 01 00:00:00 CET 2024",
-            vds.messages[Label.EXPIRATION_DATE].toString()
+            vds.messages[Label.EXPIRATION_DATE].toString(),
         )
         assertEquals("OVD 123 KD", vds.messages[Label.CAR_LICENSE_PLATE])
         assertEquals("Ford Ranger", vds.messages[Label.CAR_MODEL])
@@ -238,27 +238,27 @@ class VdsTests {
         assertEquals("20", vds.messages[Label.QUANTITY])
         assertEquals(
             "LEONHARD KURZ Stiftung & Co. KG",
-            vds.messages[Label.CONTACT_DETAILS_NAME]
+            vds.messages[Label.CONTACT_DETAILS_NAME],
         )
         assertEquals(
             "Schwabacher Straße 482",
-            vds.messages[Label.CONTACT_DETAILS_STREET]
+            vds.messages[Label.CONTACT_DETAILS_STREET],
         )
         assertEquals(
             "90763 Fürth/Germany",
-            vds.messages[Label.CONTACT_DETAILS_ADDRESS]
+            vds.messages[Label.CONTACT_DETAILS_ADDRESS],
         )
         assertEquals(
             "Mobil: +49 152 567 19 045",
-            vds.messages[Label.CONTACT_DETAILS_PHONE]
+            vds.messages[Label.CONTACT_DETAILS_PHONE],
         )
         assertEquals(
             "info@trustconcept.com",
-            vds.messages[Label.CONTACT_DETAILS_EMAIL]
+            vds.messages[Label.CONTACT_DETAILS_EMAIL],
         )
         assertEquals(
             "https://www.trustconcept.com",
-            vds.messages[Label.CONTACT_DETAILS_WEBSITE]
+            vds.messages[Label.CONTACT_DETAILS_WEBSITE],
         )
         assertEquals(true, vds.verify())
     }
@@ -272,7 +272,7 @@ class VdsTests {
         assertEquals("Max", vds.messages[Label.GIVEN_NAME])
         assertEquals(
             "Fri Mar 28 00:00:00 CET 1997",
-            vds.messages[Label.DATE_OF_BIRTH].toString()
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
         )
         assertEquals("Germany", vds.messages[Label.RESIDENCE])
         assertEquals("PA", vds.messages[Label.TYPE_OF_ID])
@@ -284,11 +284,11 @@ class VdsTests {
         assertEquals("John Doe", vds.messages[Label.SUPERVISOR])
         assertEquals(
             "KURZ Digital Solutions GmbH & Co. KG; Schwabacher Str. 106, 90763 Fürth, Germany",
-            vds.messages[Label.COMPANY]
+            vds.messages[Label.COMPANY],
         )
         assertEquals(
             "Thu Jan 20 11:40:00 CET 2022",
-            vds.messages[Label.TIMESTAMP].toString()
+            vds.messages[Label.TIMESTAMP].toString(),
         )
         assertEquals(1, (vds.messages[Label.VALIDITY] as Byte).toInt())
         assertEquals(true, vds.verify())
@@ -304,7 +304,7 @@ class VdsTests {
         assertEquals("Germany", vds.messages[Label.MANUFACTURING_PLACE])
         assertEquals(
             "Schwabacher Str. 482, 90763",
-            vds.messages[Label.MANUFACTURING_FACILITY]
+            vds.messages[Label.MANUFACTURING_FACILITY],
         )
         assertEquals("LM523", vds.messages[Label.MACHINE])
         assertEquals("Marlboro Cigarettes", vds.messages[Label.PRODUCT_DESCRIPTION])
@@ -316,12 +316,12 @@ class VdsTests {
     }
 
     private fun readAndParse(
-        name: String
+        name: String,
     ) = ClassLoader.getSystemResource(
-        name
+        name,
     ).readBytes().decodeVds()
 
     private fun Vds.verify() = verify(
-        CertificateListIterator(certificates)
+        CertificateListIterator(certificates),
     )
 }

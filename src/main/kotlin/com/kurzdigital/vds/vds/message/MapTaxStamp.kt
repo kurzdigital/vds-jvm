@@ -20,5 +20,5 @@ fun mapTaxStamp(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.MARKET_OF_SALE to messages.getString(7),
     Label.SHIPMENT_ROUTE to messages.getString(8),
     Label.IMPORTER to messages.getString(9),
-    Label.LINK to messages.getString(0xa)
+    Label.LINK to messages.getString(0xa),
 )

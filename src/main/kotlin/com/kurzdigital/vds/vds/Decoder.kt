@@ -46,15 +46,14 @@ private fun ByteBuffer.readVds(): Vds {
                 header,
                 mapper.invoke(messages),
                 getByteArray(pos).sha256(),
-                value.concatenatedRSToASN1DER()
+                value.concatenatedRSToASN1DER(),
             )
         }
         messages[tag] = value
     }
 }
 
-private fun VdsHeader.getMapper():
-    Pair<VdsType, (Map<Byte, ByteArray>) -> Map<Any, Any?>> = when (id) {
+private fun VdsHeader.getMapper(): Pair<VdsType, (Map<Byte, ByteArray>) -> Map<Any, Any?>> = when (id) {
     0x5D01 -> Pair(VdsType.VISA, ::mapVisa)
     0x5E03 -> Pair(VdsType.EMERGENCY_TRAVEL, ::mapEmergencyTravel)
     0x5F03 -> Pair(VdsType.EMERGENCY_TRAVEL_WITH_BIO, ::mapEmergencyTravelWithBio)
@@ -81,7 +80,7 @@ private fun ByteBuffer.readHeader() = VdsHeader(
     documentIssueDate = getDateFromUInt24(),
     signatureCreationDate = getDateFromUInt24(),
     docFeatureDefRef = get(),
-    docTypeCategory = get()
+    docTypeCategory = get(),
 )
 
 private fun ByteBuffer.getByteArray(size: Int): ByteArray {
@@ -91,5 +90,5 @@ private fun ByteBuffer.getByteArray(size: Int): ByteArray {
 }
 
 private fun ByteBuffer.getDateFromUInt24() = getDateFromUInt24(
-    decodeUInt24(get(), get(), get())
+    decodeUInt24(get(), get(), get()),
 )

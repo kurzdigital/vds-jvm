@@ -9,11 +9,11 @@ data class VdsNc(
     val messages: List<Pair<Any, Any>>,
     val sha256: ByteArray,
     val signature: ByteArray,
-    val certificate: Certificate
+    val certificate: Certificate,
 ) : Serializable
 
 data class VdsNcHeader(
     val issuingCountry: String,
     val type: String,
-    val version: Int
+    val version: Int,
 ) : Serializable

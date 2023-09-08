@@ -15,5 +15,5 @@ fun mapAddressStickerGermanIDCard(messages: Map<Byte, ByteArray>) = mapOf<Any, A
     Label.RESIDENTIAL_ADDRESS to (
         messages[3]?.decodeC40()
             ?: throw IllegalArgumentException("Missing residential address")
-        )
+        ),
 )

@@ -9,11 +9,11 @@ fun mapVehicleVignette(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.EXPIRATION_DATE to (
         getDateFromUInt24(
             messages[1]?.getUInt24()
-                ?: throw IllegalArgumentException("Missing date of birth")
+                ?: throw IllegalArgumentException("Missing date of birth"),
         ) ?: throw IllegalArgumentException("Invalid date of birth")
         ),
     Label.CAR_LICENSE_PLATE to messages.getString(2),
     Label.CAR_MODEL to messages.getString(3),
     Label.CAR_COLOR to messages.getString(4),
-    Label.OWNER to messages.getString(5)
+    Label.OWNER to messages.getString(5),
 )

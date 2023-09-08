@@ -13,7 +13,7 @@ fun mapSupervisedAntigenTest(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.DATE_OF_BIRTH to (
         getDateFromUInt24(
             messages[3]?.getUInt24()
-                ?: throw IllegalArgumentException("Missing date of birth")
+                ?: throw IllegalArgumentException("Missing date of birth"),
         ) ?: throw IllegalArgumentException("Invalid date of birth")
         ),
     Label.RESIDENCE to messages.getString(4),
@@ -37,5 +37,5 @@ fun mapSupervisedAntigenTest(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
             messages[0xe]
                 ?: throw IllegalArgumentException("Missing validity")
             )[0]
-        )
+        ),
 )

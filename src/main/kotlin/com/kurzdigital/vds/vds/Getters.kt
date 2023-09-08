@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.Locale
 
 fun Map<Byte, ByteArray>.getString(key: Byte) = String(
-    get(key) ?: throw IllegalArgumentException("Missing tag $key")
+    get(key) ?: throw IllegalArgumentException("Missing tag $key"),
 )
 
 fun ByteArray.getTimestampFromUInt32(): Date {
@@ -21,7 +21,7 @@ fun ByteArray.getTimestampFromUInt32(): Date {
 
 fun getDateFromUInt24(value: Int): Date? = SimpleDateFormat(
     "MMddyyyy",
-    Locale.US
+    Locale.US,
 ).parse(String.format("%08d", value))
 
 fun ByteArray.getUInt24(): Int {

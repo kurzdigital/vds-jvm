@@ -8,19 +8,19 @@ import com.kurzdigital.mrz.MrzTd3Parser
 import kotlin.math.max
 
 fun ByteArray.decodeC40MrvA(): MrzInfo? = MrzMrvAParser.parse(
-    prepareMrz(88)
+    prepareMrz(88),
 )
 
 fun ByteArray.decodeC40MrvB(): MrzInfo? = MrzMrvBParser.parse(
-    prepareMrz(72)
+    prepareMrz(72),
 )
 
 fun ByteArray.decodeC40Td2(): MrzInfo? = MrzTd2Parser.parse(
-    prepareMrz(72)
+    prepareMrz(72),
 )
 
 fun ByteArray.decodeC40Td3(): MrzInfo? = MrzTd3Parser.parse(
-    prepareMrz(88)
+    prepareMrz(88),
 )
 
 private fun ByteArray.prepareMrz(min: Int): String =

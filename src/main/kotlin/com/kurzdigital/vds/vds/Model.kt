@@ -8,7 +8,7 @@ data class Vds(
     val header: VdsHeader,
     val messages: Map<Any, Any?>,
     val sha256: ByteArray,
-    val signature: ByteArray
+    val signature: ByteArray,
 ) : Serializable
 
 data class VdsHeader(
@@ -21,5 +21,5 @@ data class VdsHeader(
     val docFeatureDefRef: Byte,
     val docTypeCategory: Byte,
     val id: Int = (docFeatureDefRef.toUByte().toInt() shl 8) or
-        docTypeCategory.toUByte().toInt()
+        docTypeCategory.toUByte().toInt(),
 ) : Serializable

@@ -8,7 +8,7 @@ fun mapProofOfVaccination(msg: JSONObject): List<Pair<Any, Any>> {
     val list = mutableListOf<Pair<Any, Any>>(
         Pair(Label.UVCI, msg.getString("uvci")),
         Pair(Label.NAME, pid.getString("n")),
-        Pair(Label.DOCUMENT_NUMBER, pid.getString("i"))
+        Pair(Label.DOCUMENT_NUMBER, pid.getString("i")),
     )
     val events = msg.getJSONArray("ve")
     val numberOfEvents = events.length()
@@ -18,8 +18,8 @@ fun mapProofOfVaccination(msg: JSONObject): List<Pair<Any, Any>> {
             listOf(
                 Pair(Label.VACCINE_BRAND, event.getString("nam")),
                 Pair(Label.VACCINE_OR_PROPHYLAXIS, event.getString("des")),
-                Pair(Label.TARGETED_DISEASE, event.getString("dis"))
-            )
+                Pair(Label.TARGETED_DISEASE, event.getString("dis")),
+            ),
         )
         val doses = event.getJSONArray("vd")
         val numberOfDoses = doses.length()
@@ -31,8 +31,8 @@ fun mapProofOfVaccination(msg: JSONObject): List<Pair<Any, Any>> {
                     Pair(Label.DATE_OF_VACCINATION, dose.getString("dvc")),
                     Pair(Label.COUNTRY_OF_VACCINATION, dose.getString("ctr")),
                     Pair(Label.VACCINE_BATCH_NUMBER, dose.getString("lot")),
-                    Pair(Label.ADMINISTERING_CENTER, dose.getString("adm"))
-                )
+                    Pair(Label.ADMINISTERING_CENTER, dose.getString("adm")),
+                ),
             )
         }
     }

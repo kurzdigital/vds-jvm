@@ -12,5 +12,5 @@ fun mapArrivalAttestation(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.ARZ to (
         messages[3]?.decodeC40()
             ?: throw IllegalArgumentException("Missing ARZ")
-        )
+        ),
 )

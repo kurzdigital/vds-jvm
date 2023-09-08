@@ -9,17 +9,17 @@ import java.util.Date
 enum class VerificationResult {
     SIGNATURE_INVALID,
     SIGNATURE_VALID,
-    SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN
+    SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN,
 }
 
 fun VdsNc.verify(
     trustAnchors: Set<TrustAnchor>,
-    date: Date = Date()
+    date: Date = Date(),
 ) = if (
     !verify(
         certificate.publicKey,
         sha256,
-        signature
+        signature,
     ) || !certificate.validAt(date)
 ) {
     VerificationResult.SIGNATURE_INVALID

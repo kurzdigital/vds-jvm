@@ -25,11 +25,11 @@ import java.security.cert.X509Certificate
 import java.util.Date
 
 fun InputStream.readCscaMasterList() = getTrustedCertificates(
-    CertificateFactory.getInstance("X.509", provider)
+    CertificateFactory.getInstance("X.509", provider),
 ).toSet()
 
 fun Set<TrustAnchor>.verifyDocumentCertificate(
-    certificate: Certificate
+    certificate: Certificate,
 ): Boolean {
     val x509 = certificate.toX509()
     if (x509.notAfter.before(Date())) {
@@ -41,7 +41,7 @@ fun Set<TrustAnchor>.verifyDocumentCertificate(
         builder = CertPathBuilder.getInstance("PKIX", provider)
         buildParams = PKIXBuilderParameters(
             this,
-            X509CertSelector()
+            X509CertSelector(),
         ).apply {
             isRevocationEnabled = false
             maxPathLength = 0
@@ -64,19 +64,19 @@ fun Set<TrustAnchor>.verifyDocumentCertificate(
 }
 
 private fun Certificate.toX509() = CertificateFactory.getInstance(
-    "X.509"
+    "X.509",
 ).generateCertificate(
-    ByteArrayInputStream(encoded)
+    ByteArrayInputStream(encoded),
 ) as X509Certificate
 
 private fun inCertStore(vararg certificates: X509Certificate) = CertStore.getInstance(
     "Collection",
     CollectionCertStoreParameters(listOf(*certificates)),
-    provider
+    provider,
 )
 
 private fun InputStream.getTrustedCertificates(
-    certFactory: CertificateFactory
+    certFactory: CertificateFactory,
 ): List<TrustAnchor> {
     // Both the root certificates and the link certificates in the Master List
     // will be fully trusted. Trust a link certificate even if no self-signed
@@ -107,36 +107,36 @@ private fun InputStream.getTrustedCertificates(
 }
 
 private fun DEROctetString.toASN1InputStream() = ASN1InputStream(
-    ByteArrayInputStream(this.octets)
+    ByteArrayInputStream(this.octets),
 )
 
 private fun ASN1Encodable.toInputStream() = ByteArrayInputStream(
-    toASN1Primitive().encoded
+    toASN1Primitive().encoded,
 )
 
 private fun InputStream.readSignedData(): SignedData {
     val sequence = ASN1InputStream(this).readObject() as ASN1Sequence
     if (sequence.size() != 2) {
         throw IOException(
-            "Was expecting a DER sequence of length 2, found a DER sequence of length ${sequence.size()}"
+            "Was expecting a DER sequence of length 2, found a DER sequence of length ${sequence.size()}",
         )
     }
     val contentTypeOID = (sequence.getObjectAt(0) as ASN1ObjectIdentifier).id
     if (contentTypeOID != "1.2.840.113549.1.7.2") {
         throw IOException(
-            "Was expecting signed-data content type OID, found $contentTypeOID"
+            "Was expecting signed-data content type OID, found $contentTypeOID",
         )
     }
     return SignedData.getInstance(
         sequence.getObjectAt(1).getObjectFromTaggedObject() as? ASN1Sequence
-            ?: throw IOException("Was expecting an ASN.1 sequence as content")
+            ?: throw IOException("Was expecting an ASN.1 sequence as content"),
     )
 }
 
 private fun ASN1Encodable.getObjectFromTaggedObject(): ASN1Primitive? {
     if (this !is ASN1TaggedObject) {
         throw IOException(
-            "Was expecting an ASN1TaggedObject, found ${javaClass.canonicalName}"
+            "Was expecting an ASN1TaggedObject, found ${javaClass.canonicalName}",
         )
     }
     if (tagNo != 0) {

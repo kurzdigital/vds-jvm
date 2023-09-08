@@ -13,7 +13,7 @@ fun mapVaccinationCertificate(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>
     Label.DATE_OF_BIRTH to (
         getDateFromUInt24(
             messages[3]?.getUInt24()
-                ?: throw IllegalArgumentException("Missing date of birth")
+                ?: throw IllegalArgumentException("Missing date of birth"),
         ) ?: throw IllegalArgumentException("Invalid date of birth")
         ),
     Label.RESIDENCE to messages.getString(4),
@@ -33,5 +33,5 @@ fun mapVaccinationCertificate(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>
         ),
     Label.VACCINATED_DISEASE to messages.getString(0xa),
     Label.DOCTOR to messages.getString(0xb),
-    Label.TIMESTAMP to messages[0xc]?.getTimestampFromUInt32()
+    Label.TIMESTAMP to messages[0xc]?.getTimestampFromUInt32(),
 )
