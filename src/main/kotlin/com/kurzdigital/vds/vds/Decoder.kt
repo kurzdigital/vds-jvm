@@ -7,6 +7,7 @@ import com.kurzdigital.vds.vds.message.mapAddressStickerGermanIDCard
 import com.kurzdigital.vds.vds.message.mapAddressStickerGermanPassport
 import com.kurzdigital.vds.vds.message.mapArrivalAttestation
 import com.kurzdigital.vds.vds.message.mapEmergencyTravel
+import com.kurzdigital.vds.vds.message.mapEmergencyTravelSingleJourney
 import com.kurzdigital.vds.vds.message.mapEmergencyTravelWithBio
 import com.kurzdigital.vds.vds.message.mapGeneralPurpose
 import com.kurzdigital.vds.vds.message.mapPharmapack
@@ -56,6 +57,7 @@ private fun ByteBuffer.readVds(): Vds {
 private fun VdsHeader.getMapper(): Pair<VdsType, (Map<Byte, ByteArray>) -> Map<Any, Any?>> = when (id) {
     0x5D01 -> Pair(VdsType.VISA, ::mapVisa)
     0x5E03 -> Pair(VdsType.EMERGENCY_TRAVEL, ::mapEmergencyTravel)
+    0x7E04 -> Pair(VdsType.EMERGENCY_TRAVEL_SINGLE_JOURNEY, ::mapEmergencyTravelSingleJourney)
     0x5F03 -> Pair(VdsType.EMERGENCY_TRAVEL_WITH_BIO, ::mapEmergencyTravelWithBio)
     0x6F01 -> Pair(VdsType.SUPERVISED_ANTIGEN_TEST, ::mapSupervisedAntigenTest)
     0x7001 -> Pair(VdsType.VACCINATION_CERTIFICATE, ::mapVaccinationCertificate)

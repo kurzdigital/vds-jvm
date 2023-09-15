@@ -4,6 +4,7 @@ import com.kurzdigital.vds.Label
 import com.kurzdigital.vds.security.CertificateListIterator
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
@@ -25,6 +26,7 @@ class VdsTests {
             "KDS_TAXSTAMPS.crt",
             "KDS_TEST_VACC.crt",
             "KDS_VEHICLE_VIGNETTE.crt",
+            "SingleJourney_ETD.crt",
             "sealgen_UTTS5B.crt",
         ).forEach {
             certificates.add(
@@ -66,6 +68,54 @@ class VdsTests {
         assertEquals(
             "I<GBR6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6SUPAMANN<<MARY<<<<<<<<<<<<<<<<",
             vds.messages[Label.MRZ].toString(),
+        )
+        assertEquals(true, vds.verify())
+    }
+
+    @Test
+    fun emergencyTravelSingleJourney() {
+        val vds = readAndParse("vds_sample_emergency_travel_single_journey")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "652584509",
+            vds.messages[Label.DOCUMENT_NUMBER].toString(),
+        )
+        assertEquals(
+            "Smith",
+            vds.messages[Label.SURNAME].toString(),
+        )
+        assertEquals(
+            "John",
+            vds.messages[Label.GIVEN_NAME].toString(),
+        )
+        assertEquals(
+            "USA",
+            vds.messages[Label.NATIONALITY].toString(),
+        )
+        assertEquals(
+            "Tue Jul 18 00:00:00 CEST 1995",
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
+        )
+        assertEquals(
+            "M",
+            vds.messages[Label.SEX].toString(),
+        )
+        assertEquals(
+            "Fürth",
+            vds.messages[Label.PLACE_OF_BIRTH].toString(),
+        )
+        assertEquals(
+            "Utopia",
+            vds.messages[Label.DESTINATION].toString(),
+        )
+        assertEquals(
+            "Thu Jul 18 00:00:00 CEST 2024",
+            vds.messages[Label.EXPIRATION_DATE].toString(),
+        )
+        assertArrayEquals(
+            byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+            vds.messages[Label.BIOMETRICS] as ByteArray,
         )
         assertEquals(true, vds.verify())
     }
