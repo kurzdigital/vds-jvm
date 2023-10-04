@@ -1,6 +1,7 @@
 package com.kurzdigital.vds
 
 enum class Label {
+    ADDITONAL_FEATURE,
     ADMINISTERING_CENTER,
     ARZ,
     BATCH_NUMBER,
@@ -82,4 +83,5 @@ enum class Label {
     VACCINE_BRAND,
     VACCINE_OR_PROPHYLAXIS,
     VALIDITY,
+    VISA_TYPE,
 }
