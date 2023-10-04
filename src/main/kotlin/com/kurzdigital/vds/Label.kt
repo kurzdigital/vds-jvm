@@ -1,7 +1,7 @@
 package com.kurzdigital.vds
 
 enum class Label {
-    ADDITONAL_FEATURE,
+    ADDITIONAL_FEATURE,
     ADMINISTERING_CENTER,
     ARZ,
     BATCH_NUMBER,

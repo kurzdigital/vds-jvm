@@ -24,5 +24,5 @@ fun mapVisa(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
             ?: throw IllegalArgumentException("Missing passport number")
         ),
     Label.VISA_TYPE to messages[6],
-    Label.ADDITONAL_FEATURE to messages[7],
+    Label.ADDITIONAL_FEATURE to messages[7],
 )
