@@ -4,7 +4,6 @@ import com.kurzdigital.mrz.MrzInfo
 import com.kurzdigital.vds.Label
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Base64
 import java.util.Date
 import java.util.Locale
 
@@ -14,26 +13,12 @@ fun Map<Any, Any?>.labelStringPairs() = mutableListOf<Pair<Any, Any>>().also {
             null -> Unit
             is MrzInfo -> it.addAll((entry.value as MrzInfo).toMap().toList())
             is Date -> it.add(Pair(entry.key, (entry.value as Date).format()))
-            is ByteArray -> if (
-                entry.key is Label &&
-                entry.key == Label.BIOMETRICS
-            ) {
-                it.add(
-                    Pair(
-                        entry.key,
-                        Base64.getEncoder().encodeToString(
-                            entry.value as ByteArray,
-                        ),
-                    ),
-                )
-            } else {
-                it.add(
-                    Pair(
-                        entry.key,
-                        (entry.value as ByteArray).toHexString(),
-                    ),
-                )
-            }
+            is ByteArray -> it.add(
+                Pair(
+                    entry.key,
+                    (entry.value as ByteArray).toHexString(),
+                ),
+            )
             else -> it.add(Pair(entry.key, entry.value.toString()))
         }
     }
