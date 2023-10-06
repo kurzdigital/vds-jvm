@@ -365,6 +365,35 @@ class VdsTests {
         assertEquals(true, vds.verify())
     }
 
+    @Test
+    fun demecanPatientID() {
+        val vds = readAndParse("vds_sample_demecan_patient_id")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "UTO-012345",
+            vds.messages[Label.DOCUMENT_NUMBER].toString(),
+        )
+        assertEquals(
+            "Sample Pia Angela",
+            vds.messages[Label.NAME].toString(),
+        )
+        assertEquals(
+            "Mon Jun 12 00:00:00 CEST 1995",
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
+        )
+        assertEquals(
+            "Schwabacher Str. 106",
+            vds.messages[Label.ADDRESS_STREET].toString(),
+        )
+        assertEquals(
+            "90763 Fürth",
+            vds.messages[Label.ADDRESS_CITY].toString(),
+        )
+        // The sample is signed with a key that would require Bouncy Castle
+        // so we skip verification here.
+    }
+
     private fun readAndParse(
         name: String,
     ) = ClassLoader.getSystemResource(

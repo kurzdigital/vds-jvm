@@ -6,6 +6,7 @@ import com.kurzdigital.vds.security.sha256
 import com.kurzdigital.vds.vds.message.mapAddressStickerGermanIDCard
 import com.kurzdigital.vds.vds.message.mapAddressStickerGermanPassport
 import com.kurzdigital.vds.vds.message.mapArrivalAttestation
+import com.kurzdigital.vds.vds.message.mapDemecanPatientId
 import com.kurzdigital.vds.vds.message.mapEmergencyTravel
 import com.kurzdigital.vds.vds.message.mapEmergencyTravelSingleJourney
 import com.kurzdigital.vds.vds.message.mapEmergencyTravelWithBio
@@ -71,6 +72,7 @@ private fun VdsHeader.getMapper(): Pair<VdsType, (Map<Byte, ByteArray>) -> Map<A
     0xFB06 -> Pair(VdsType.RESIDENCE_PERMIT, ::mapResidencePermitProfile)
     0xFC04 -> Pair(VdsType.SOCIAL_INSURANCE_CARD, ::mapSocialInsuranceCard)
     0xFD02 -> Pair(VdsType.ARRIVAL_ATTESTATION, ::mapArrivalAttestation)
+    0x7F04 -> Pair(VdsType.DEMECAN_PATIENT_ID, ::mapDemecanPatientId)
     else -> throw IllegalArgumentException("Unknown document")
 }
 

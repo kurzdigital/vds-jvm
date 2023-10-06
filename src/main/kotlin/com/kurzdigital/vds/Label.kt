@@ -3,6 +3,8 @@ package com.kurzdigital.vds
 enum class Label {
     ADDITIONAL_FEATURE,
     ADMINISTERING_CENTER,
+    ADDRESS_STREET,
+    ADDRESS_CITY,
     ARZ,
     BATCH_NUMBER,
     BEST_BEFORE,
