@@ -394,6 +394,35 @@ class VdsTests {
         // so we skip verification here.
     }
 
+    @Test
+    fun maliWsl() {
+        val vds = readAndParse("vds_sample_mali_wsl")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "QUAEM6DEE4EO",
+            vds.messages[Label.UNIQUE_CODE].toString(),
+        )
+        assertEquals(
+            "013210",
+            vds.messages[Label.SERIAL_NUMBER].toString(),
+        )
+        assertEquals(
+            "V/2",
+            vds.messages[Label.TYPE].toString(),
+        )
+        assertEquals(
+            9000,
+            vds.messages[Label.CHARGE],
+        )
+        assertEquals(
+            2024,
+            vds.messages[Label.YEAR],
+        )
+        // The sample is signed with a key that would require Bouncy Castle
+        // so we skip verification here.
+    }
+
     private fun readAndParse(
         name: String,
     ) = ClassLoader.getSystemResource(

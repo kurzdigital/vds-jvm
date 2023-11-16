@@ -18,4 +18,5 @@ enum class VdsType {
     SOCIAL_INSURANCE_CARD,
     ARRIVAL_ATTESTATION,
     DEMECAN_PATIENT_ID,
+    MALI_WSL,
 }

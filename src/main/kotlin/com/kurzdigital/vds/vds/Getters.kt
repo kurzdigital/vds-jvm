@@ -24,6 +24,14 @@ fun getDateFromUInt24(value: Int): Date? = SimpleDateFormat(
     Locale.US,
 ).parse(String.format("%08d", value))
 
+fun ByteArray.getUInt16(): Int {
+    if (size != 2) {
+        throw IllegalArgumentException("Insufficient length for UInt16")
+    }
+    return (get(1).toUByte().toInt() shl 8) or
+        get(0).toUByte().toInt()
+}
+
 fun ByteArray.getUInt24(): Int {
     if (size != 3) {
         throw IllegalArgumentException("Insufficient length for UInt24")
@@ -35,3 +43,13 @@ fun decodeUInt24(high: Byte, middle: Byte, low: Byte): Int =
     (high.toUByte().toInt() shl 16) or
         (middle.toUByte().toInt() shl 8) or
         low.toUByte().toInt()
+
+fun ByteArray.getUInt32(): Int {
+    if (size != 4) {
+        throw IllegalArgumentException("Insufficient length for UInt32")
+    }
+    return (get(3).toUByte().toInt() shl 24) or
+        (get(2).toUByte().toInt() shl 16) or
+        (get(1).toUByte().toInt() shl 8) or
+        get(0).toUByte().toInt()
+}
