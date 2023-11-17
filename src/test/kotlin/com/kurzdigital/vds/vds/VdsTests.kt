@@ -212,7 +212,7 @@ class VdsTests {
             vds.messages[Label.MRZ].toString(),
         )
         assertEquals(2, (vds.messages[Label.NUMBER_OF_ENTRIES] as Byte).toInt())
-        assertEquals(5898240, vds.messages[Label.DURATION_OF_STAY])
+        assertEquals(90, vds.messages[Label.DURATION_OF_STAY])
         assertEquals("ABC424242", vds.messages[Label.PASSPORT_NUMBER])
         // Because we don't have the ICAO certificate/public key we
         // cannot verify the ICAO signature, unfortunately.

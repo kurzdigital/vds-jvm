@@ -1,16 +1,13 @@
 package com.kurzdigital.vds.vds.message
 
 import com.kurzdigital.vds.Label
-import com.kurzdigital.vds.vds.getDateFromUInt24
+import com.kurzdigital.vds.vds.getDate
 import com.kurzdigital.vds.vds.getString
-import com.kurzdigital.vds.vds.getUInt24
 
 fun mapVehicleVignette(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.EXPIRATION_DATE to (
-        getDateFromUInt24(
-            messages[1]?.getUInt24()
-                ?: throw IllegalArgumentException("Missing expiration date"),
-        ) ?: throw IllegalArgumentException("Invalid expiration date")
+        messages[1]?.getDate()
+            ?: throw IllegalArgumentException("Missing expiration date")
         ),
     Label.CAR_LICENSE_PLATE to messages.getString(2),
     Label.CAR_MODEL to messages.getString(3),

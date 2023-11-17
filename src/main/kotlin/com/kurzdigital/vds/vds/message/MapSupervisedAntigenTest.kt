@@ -2,19 +2,16 @@ package com.kurzdigital.vds.vds.message
 
 import com.kurzdigital.vds.Label
 import com.kurzdigital.vds.security.decodeC40
-import com.kurzdigital.vds.vds.getDateFromUInt24
+import com.kurzdigital.vds.vds.getDate
 import com.kurzdigital.vds.vds.getString
 import com.kurzdigital.vds.vds.getTimestampFromUInt32
-import com.kurzdigital.vds.vds.getUInt24
 
 fun mapSupervisedAntigenTest(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.SURNAME to messages.getString(1),
     Label.GIVEN_NAME to messages.getString(2),
     Label.DATE_OF_BIRTH to (
-        getDateFromUInt24(
-            messages[3]?.getUInt24()
-                ?: throw IllegalArgumentException("Missing date of birth"),
-        ) ?: throw IllegalArgumentException("Invalid date of birth")
+        messages[3]?.getDate()
+            ?: throw IllegalArgumentException("Missing date of birth")
         ),
     Label.RESIDENCE to messages.getString(4),
     Label.TYPE_OF_ID to (
@@ -32,10 +29,5 @@ fun mapSupervisedAntigenTest(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.SUPERVISOR to messages.getString(0xb),
     Label.COMPANY to messages.getString(0xc),
     Label.TIMESTAMP to messages[0xd]?.getTimestampFromUInt32(),
-    Label.VALIDITY to (
-        (
-            messages[0xe]
-                ?: throw IllegalArgumentException("Missing validity")
-            )[0]
-        ),
+    Label.VALIDITY to (messages[0xe] ?: throw IllegalArgumentException("Missing validity"))[0],
 )

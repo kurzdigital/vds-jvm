@@ -83,8 +83,8 @@ private fun ByteBuffer.readHeader() = VdsHeader(
     countryId = getByteArray(2).decodeC40(),
     signerIdentifier = getByteArray(4).decodeC40(),
     certificateReference = getByteArray(2).decodeC40(),
-    documentIssueDate = getDateFromUInt24(),
-    signatureCreationDate = getDateFromUInt24(),
+    documentIssueDate = getDate(),
+    signatureCreationDate = getDate(),
     docFeatureDefRef = get(),
     docTypeCategory = get(),
 )
@@ -94,7 +94,3 @@ private fun ByteBuffer.getByteArray(size: Int): ByteArray {
     get(buffer)
     return buffer
 }
-
-private fun ByteBuffer.getDateFromUInt24() = getDateFromUInt24(
-    decodeUInt24(get(), get(), get()),
-)
