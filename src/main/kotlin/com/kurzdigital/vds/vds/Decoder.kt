@@ -50,6 +50,7 @@ private fun ByteBuffer.readVds(): Vds {
                 mapper.invoke(messages),
                 getByteArray(pos).sha256(),
                 value.concatenatedRSToASN1DER(),
+                value,
             )
         }
         messages[tag] = value

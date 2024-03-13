@@ -9,6 +9,7 @@ data class Vds(
     val messages: Map<Any, Any?>,
     val sha256: ByteArray,
     val signature: ByteArray,
+    val rawSignature: ByteArray,
 ) : Serializable
 
 data class VdsHeader(
