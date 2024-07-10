@@ -466,6 +466,57 @@ class VdsTests {
         // so we skip verification here.
     }
 
+    @Test
+    fun ticketDemonstrator() {
+        val vds = readAndParse("vds_sample_ticket_demonstrator")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "Scorpions",
+            vds.messages[Label.EVENT_TITLE],
+        )
+        assertEquals(
+            "Sat Jun 01 19:00:00 CEST 2024",
+            vds.messages[Label.TIMESTAMP].toString(),
+        )
+        assertEquals(
+            "002359",
+            vds.messages[Label.TICKET_NUMBER],
+        )
+        assertEquals(
+            "Quasimodo",
+            vds.messages[Label.LOCATION_NAME],
+        )
+        assertEquals(
+            "113",
+            vds.messages[Label.SEAT_SECTION],
+        )
+        assertEquals(
+            "AK",
+            vds.messages[Label.SEAT_ROW],
+        )
+        assertEquals(
+            "45",
+            vds.messages[Label.SEAT_NUMBER],
+        )
+        assertEquals(
+            "John Smith",
+            vds.messages[Label.NAME],
+        )
+        assertEquals(
+            "Sat Jan 01 00:00:00 CET 2000",
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
+        )
+        assertEquals(
+            "XZh6ZnCFVl6iUah6N1JzkVdafGmSaXuERyhgXndTWmhMb2aKcXKfc1JobrWkhnlqkTihkJZ2iE5pnE2KfWlodbmXSmimYXl6Wz4qkdKmQXRheZSKYnNghpN3Zq94hXiHXXFScolseKJQj31xfn9NWI4yjpuFnJGGjmBGb4tvioA=",
+            java.util.Base64.getEncoder().encodeToString(
+                vds.messages[Label.BIOMETRICS] as ByteArray,
+            ),
+        )
+        // The sample is signed with a key that would require Bouncy Castle
+        // so we skip verification here.
+    }
+
     private fun readAndParse(
         name: String,
     ) = ClassLoader.getSystemResource(

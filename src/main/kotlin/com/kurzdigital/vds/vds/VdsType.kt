@@ -20,4 +20,5 @@ enum class VdsType {
     DEMECAN_PATIENT_ID,
     MALI_WSL,
     HEALTH_INSURANCE_CARD,
+    TICKET_DEMONSTRATOR,
 }

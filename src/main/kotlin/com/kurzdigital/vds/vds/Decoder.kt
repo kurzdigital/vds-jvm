@@ -19,6 +19,7 @@ import com.kurzdigital.vds.vds.message.mapSocialInsuranceCard
 import com.kurzdigital.vds.vds.message.mapSupervisedAntigenTest
 import com.kurzdigital.vds.vds.message.mapSupplementSheet
 import com.kurzdigital.vds.vds.message.mapTaxStamp
+import com.kurzdigital.vds.vds.message.mapTicketDemonstrator
 import com.kurzdigital.vds.vds.message.mapVaccinationCertificate
 import com.kurzdigital.vds.vds.message.mapVehicleVignette
 import com.kurzdigital.vds.vds.message.mapVisa
@@ -77,6 +78,7 @@ private fun VdsHeader.getMapper(): Pair<VdsType, (Map<Byte, ByteArray>) -> Map<A
     0xFD02 -> Pair(VdsType.ARRIVAL_ATTESTATION, ::mapArrivalAttestation)
     0x7F04 -> Pair(VdsType.DEMECAN_PATIENT_ID, ::mapDemecanPatientId)
     0x8a02 -> Pair(VdsType.MALI_WSL, ::mapMaliWsl)
+    0x8b04 -> Pair(VdsType.TICKET_DEMONSTRATOR, ::mapTicketDemonstrator)
     0x8c04 -> Pair(VdsType.HEALTH_INSURANCE_CARD, ::mapHealthInsuranceCard)
     else -> throw IllegalArgumentException("Unknown document")
 }
