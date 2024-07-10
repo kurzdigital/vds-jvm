@@ -1,12 +1,14 @@
 package com.kurzdigital.vds
 
 enum class Label {
+    ACCOMMODATION,
     ADDITIONAL_FEATURE,
     ADMINISTERING_CENTER,
     ADDRESS_STREET,
     ADDRESS_CITY,
     ARZ,
     BATCH_NUMBER,
+    BENEFITS,
     BEST_BEFORE,
     BIOMETRICS,
     BIRTH_NAME,
@@ -62,6 +64,7 @@ enum class Label {
     RESIDENCE,
     RESIDENTIAL_ADDRESS,
     SERIAL_NUMBER,
+    SERVICE_NETWORK,
     SEX,
     SHEET_NUMBER,
     SHIPMENT_ROUTE,

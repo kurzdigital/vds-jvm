@@ -423,6 +423,49 @@ class VdsTests {
         // so we skip verification here.
     }
 
+    @Test
+    fun healthInsuranceCard() {
+        val vds = readAndParse("vds_sample_health_insurance_card")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "652584509",
+            vds.messages[Label.SERIAL_NUMBER],
+        )
+        assertEquals(
+            "Carlos Araújo",
+            vds.messages[Label.NAME],
+        )
+        assertEquals(
+            "Thu Feb 23 00:00:00 CET 1989",
+            vds.messages[Label.DATE_OF_BIRTH].toString(),
+        )
+        assertEquals(
+            "Plano PRO+",
+            vds.messages[Label.BENEFITS],
+        )
+        assertEquals(
+            "Apartamento | enfermaria",
+            vds.messages[Label.ACCOMMODATION],
+        )
+        assertEquals(
+            "Fri Jul 10 00:00:00 CEST 2026",
+            vds.messages[Label.EXPIRATION_DATE].toString(),
+        )
+        assertEquals(
+            "SP RJ DF",
+            vds.messages[Label.SERVICE_NETWORK],
+        )
+        assertEquals(
+            "XZh6ZnCFVl6iUah6N1JzkVdafGmSaXuERyhgXndTWmhMb2aKcXKfc1JobrWkhnlqkTihkJZ2iE5pnE2KfWlodbmXSmimYXl6Wz4qkdKmQXRheZSKYnNghpN3Zq94hXiHXXFScolseKJQj31xfn9NWI4yjpuFnJGGjmBGb4tvioA=",
+            java.util.Base64.getEncoder().encodeToString(
+                vds.messages[Label.BIOMETRICS] as ByteArray,
+            ),
+        )
+        // The sample is signed with a key that would require Bouncy Castle
+        // so we skip verification here.
+    }
+
     private fun readAndParse(
         name: String,
     ) = ClassLoader.getSystemResource(
