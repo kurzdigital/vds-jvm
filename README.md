@@ -232,7 +232,7 @@ Add the dependency:
 	<dependency>
 		<groupId>com.github.kurzdigital</groupId>
 		<artifactId>vds-jvm</artifactId>
-		<version>1.0.0</version>
+		<version>1.3.15</version>
 	</dependency>
 ```
 
