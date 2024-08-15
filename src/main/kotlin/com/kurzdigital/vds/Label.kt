@@ -99,4 +99,7 @@ enum class Label {
     VALIDITY,
     VISA_TYPE,
     YEAR,
+    STUDENT_ID,
+    SCHOOL_NAME,
+    CLASS,
 }

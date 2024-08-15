@@ -28,6 +28,7 @@ class VdsTests {
             "KDS_VEHICLE_VIGNETTE.crt",
             "SingleJourney_ETD.crt",
             "sealgen_UTTS5B.crt",
+            "SchoolAccess.crt",
         ).forEach {
             certificates.add(
                 cf.generateCertificate(
@@ -515,6 +516,40 @@ class VdsTests {
         )
         // The sample is signed with a key that would require Bouncy Castle
         // so we skip verification here.
+    }
+
+    @Test
+    fun schoolAccess() {
+        val vds = readAndParse("vds_sample_school_access")
+        assertNotNull(vds)
+        assertEquals("UTO", vds.header.countryId)
+        assertEquals(
+            "652584509",
+            vds.messages[Label.STUDENT_ID],
+        )
+        assertEquals(
+            "Ecole de Internationale",
+            vds.messages[Label.SCHOOL_NAME],
+        )
+        assertEquals(
+            "Smith",
+            vds.messages[Label.SURNAME],
+        )
+        assertEquals(
+            "John",
+            vds.messages[Label.GIVEN_NAME],
+        )
+        assertEquals(
+            "3 F",
+            vds.messages[Label.CLASS],
+        )
+        assertEquals(
+            "W5d5Y22FWGGiU6V7NVVykFZZfmqUZ3qDRyhhYHhSXWpLbWeNc3Kgc1BpcbWhhXlrkTaikZl1h01rn0yLf2hodLWVSWikY3l6Wz4rlNGmQ3VhepKJYHNghpJ5aK55h3aKXG9Sc4hqdqNOjHtvfX5PV40yjJ2DnJOEkF9Hb4xvh4A=",
+            java.util.Base64.getEncoder().encodeToString(
+                vds.messages[Label.BIOMETRICS] as ByteArray,
+            ),
+        )
+        assertEquals(true, vds.verify())
     }
 
     private fun readAndParse(
