@@ -21,4 +21,5 @@ enum class VdsType {
     MALI_WSL,
     HEALTH_INSURANCE_CARD,
     TICKET_DEMONSTRATOR,
+    SCHOOL_ACCESS,
 }
