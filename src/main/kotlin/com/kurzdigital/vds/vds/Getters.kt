@@ -50,7 +50,7 @@ fun ByteArray.getUInt24LittleEndian(): Int {
     if (size != 3) {
         throw IllegalArgumentException("Insufficient length for UInt24")
     }
-    return (get(1).toUByte().toInt() shl 16) or
+    return (get(2).toUByte().toInt() shl 16) or
         (get(1).toUByte().toInt() shl 8) or
         get(0).toUByte().toInt()
 }
