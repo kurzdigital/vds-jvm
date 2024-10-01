@@ -4,8 +4,8 @@ import com.kurzdigital.vds.security.canonicalizedJson
 import com.kurzdigital.vds.security.concatenatedRSToASN1DER
 import com.kurzdigital.vds.security.provider
 import com.kurzdigital.vds.security.sha256
-import com.kurzdigital.vds.vdsnc.message.mapProofOfTest
-import com.kurzdigital.vds.vdsnc.message.mapProofOfVaccination
+import com.kurzdigital.vds.vdsnc.feature.mapProofOfTest
+import com.kurzdigital.vds.vdsnc.feature.mapProofOfVaccination
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory
@@ -27,18 +27,18 @@ fun String.decodeVdsNc(): VdsNc {
         header.getInt("v"),
     )
     val msg = data.getJSONObject("msg")
-    val messages: List<Pair<Any, Any>>
+    val features: List<Pair<Any, Any>>
     val type = if (vdsNcHeader.type.contains("test")) {
-        messages = mapProofOfTest(msg)
+        features = mapProofOfTest(msg)
         VdsNcType.PROOF_OF_TEST
     } else {
-        messages = mapProofOfVaccination(msg)
+        features = mapProofOfVaccination(msg)
         VdsNcType.PROOF_OF_VACCINATION
     }
     return VdsNc(
         type,
         vdsNcHeader,
-        messages,
+        features,
         data.toString().canonicalizedJson().toByteArray().sha256(),
         signature.getString(
             "sigvl",

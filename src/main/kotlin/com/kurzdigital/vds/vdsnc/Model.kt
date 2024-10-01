@@ -6,7 +6,7 @@ import java.security.cert.Certificate
 data class VdsNc(
     val type: VdsNcType,
     val header: VdsNcHeader,
-    val messages: List<Pair<Any, Any>>,
+    val features: List<Pair<Any, Any>>,
     val sha256: ByteArray,
     val signature: ByteArray,
     val certificate: Certificate,

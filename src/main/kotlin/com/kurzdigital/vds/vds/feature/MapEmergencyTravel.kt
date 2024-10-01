@@ -1,11 +1,11 @@
-package com.kurzdigital.vds.vds.message
+package com.kurzdigital.vds.vds.feature
 
 import com.kurzdigital.vds.Label
 import com.kurzdigital.vds.security.decodeC40Td2
 
-fun mapEmergencyTravel(messages: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
+fun mapEmergencyTravel(features: Map<Byte, ByteArray>) = mapOf<Any, Any?>(
     Label.MRZ to (
-        messages[2]?.decodeC40Td2()
+        features[2]?.decodeC40Td2()
             ?: throw IllegalArgumentException("Missing MRZ")
         ),
 )

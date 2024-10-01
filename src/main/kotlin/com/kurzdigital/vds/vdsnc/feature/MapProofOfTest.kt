@@ -1,4 +1,4 @@
-package com.kurzdigital.vds.vdsnc.message
+package com.kurzdigital.vds.vdsnc.feature
 
 import com.kurzdigital.vds.Label
 import org.json.JSONObject

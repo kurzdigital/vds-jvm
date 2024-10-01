@@ -82,19 +82,19 @@ fun parseAndVerifyVds(
 
 	// Inspect vds.header here if desired.
 
-	// Either inspect specific messages of specific types.
+	// Either inspect specific features of specific types.
 	when (vds.type) {
 		VISA -> {
 			// Do something with:
-			vds.messages[Label.MRZ].toString()
-			vds.messages[Label.ARZ]
+			vds.features[Label.MRZ].toString()
+			vds.features[Label.ARZ]
 		}
 		// …
 	}
 
-	// Or just enumerate all messages.
-	for (message in vds.messages.labelStringPairs()) {
-		// message is of type Pair<Label, String>
+	// Or just enumerate all features.
+	for (feature in vds.features.labelStringPairs()) {
+		// feature is of type Pair<Label, String>
 	}
 
 	// Verify with your list of certificates.
@@ -122,15 +122,15 @@ fun parseAndVerifyVdsNc(
 
 	// Inspect vdsNc.header here if desired.
 
-	// Either inspect specific messages of specific types.
+	// Either inspect specific features of specific types.
 	when (vdsNc.type) {
 		PROOF_OF_TEST -> // …
 		PROOF_OF_VACCINATION -> // …
 	}
 
-	// Or just enumerate all messages.
-	for (message in vdsNc.messages) {
-		// message is of type Pair<String, String>
+	// Or just enumerate all features.
+	for (feature in vdsNc.features) {
+		// feature is of type Pair<String, String>
 	}
 
 	// Verify with your set of trust anchors.

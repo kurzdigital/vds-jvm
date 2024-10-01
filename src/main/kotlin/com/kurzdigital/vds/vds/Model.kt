@@ -6,7 +6,7 @@ import java.util.Date
 data class Vds(
     val type: VdsType,
     val header: VdsHeader,
-    val messages: Map<Any, Any?>,
+    val features: Map<Any, Any?>,
     val sha256: ByteArray,
     val signature: ByteArray,
     val rawSignature: ByteArray,

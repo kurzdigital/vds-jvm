@@ -3,27 +3,27 @@ package com.kurzdigital.vds.vds
 import com.kurzdigital.vds.security.concatenatedRSToASN1DER
 import com.kurzdigital.vds.security.decodeC40
 import com.kurzdigital.vds.security.sha256
-import com.kurzdigital.vds.vds.message.mapAddressStickerGermanIDCard
-import com.kurzdigital.vds.vds.message.mapAddressStickerGermanPassport
-import com.kurzdigital.vds.vds.message.mapArrivalAttestation
-import com.kurzdigital.vds.vds.message.mapDemecanPatientId
-import com.kurzdigital.vds.vds.message.mapEmergencyTravel
-import com.kurzdigital.vds.vds.message.mapEmergencyTravelSingleJourney
-import com.kurzdigital.vds.vds.message.mapEmergencyTravelWithBio
-import com.kurzdigital.vds.vds.message.mapGeneralPurpose
-import com.kurzdigital.vds.vds.message.mapHealthInsuranceCard
-import com.kurzdigital.vds.vds.message.mapMaliWsl
-import com.kurzdigital.vds.vds.message.mapPharmapack
-import com.kurzdigital.vds.vds.message.mapResidencePermitProfile
-import com.kurzdigital.vds.vds.message.mapSchoolAccess
-import com.kurzdigital.vds.vds.message.mapSocialInsuranceCard
-import com.kurzdigital.vds.vds.message.mapSupervisedAntigenTest
-import com.kurzdigital.vds.vds.message.mapSupplementSheet
-import com.kurzdigital.vds.vds.message.mapTaxStamp
-import com.kurzdigital.vds.vds.message.mapTicketDemonstrator
-import com.kurzdigital.vds.vds.message.mapVaccinationCertificate
-import com.kurzdigital.vds.vds.message.mapVehicleVignette
-import com.kurzdigital.vds.vds.message.mapVisa
+import com.kurzdigital.vds.vds.feature.mapAddressStickerGermanIDCard
+import com.kurzdigital.vds.vds.feature.mapAddressStickerGermanPassport
+import com.kurzdigital.vds.vds.feature.mapArrivalAttestation
+import com.kurzdigital.vds.vds.feature.mapDemecanPatientId
+import com.kurzdigital.vds.vds.feature.mapEmergencyTravel
+import com.kurzdigital.vds.vds.feature.mapEmergencyTravelSingleJourney
+import com.kurzdigital.vds.vds.feature.mapEmergencyTravelWithBio
+import com.kurzdigital.vds.vds.feature.mapGeneralPurpose
+import com.kurzdigital.vds.vds.feature.mapHealthInsuranceCard
+import com.kurzdigital.vds.vds.feature.mapMaliWsl
+import com.kurzdigital.vds.vds.feature.mapPharmapack
+import com.kurzdigital.vds.vds.feature.mapResidencePermitProfile
+import com.kurzdigital.vds.vds.feature.mapSchoolAccess
+import com.kurzdigital.vds.vds.feature.mapSocialInsuranceCard
+import com.kurzdigital.vds.vds.feature.mapSupervisedAntigenTest
+import com.kurzdigital.vds.vds.feature.mapSupplementSheet
+import com.kurzdigital.vds.vds.feature.mapTaxStamp
+import com.kurzdigital.vds.vds.feature.mapTicketDemonstrator
+import com.kurzdigital.vds.vds.feature.mapVaccinationCertificate
+import com.kurzdigital.vds.vds.feature.mapVehicleVignette
+import com.kurzdigital.vds.vds.feature.mapVisa
 import java.nio.ByteBuffer
 
 fun ByteArray.decodeVdsOrNull(): Vds? = try {
@@ -39,7 +39,7 @@ private fun ByteBuffer.readVds(): Vds {
         throw IllegalArgumentException("Magic Constant mismatch")
     }
     val header = readHeader()
-    val messages = HashMap<Byte, ByteArray>()
+    val features = HashMap<Byte, ByteArray>()
     while (true) {
         val pos = position()
         val tag = get()
@@ -50,13 +50,13 @@ private fun ByteBuffer.readVds(): Vds {
             return Vds(
                 id,
                 header,
-                mapper.invoke(messages),
+                mapper.invoke(features),
                 getByteArray(pos).sha256(),
                 value.concatenatedRSToASN1DER(),
                 value,
             )
         }
-        messages[tag] = value
+        features[tag] = value
     }
 }
 
