@@ -19,7 +19,7 @@ class VdsNcTests {
         }
         trustAnchors = ByteArrayInputStream(
             ClassLoader.getSystemResource(
-                "DE_ML_2024-08-21-08-21-38.ml",
+                "DE_ML_2024-10-02-12-44-34.ml",
             ).readBytes(),
         ).readCscaMasterList()
     }
