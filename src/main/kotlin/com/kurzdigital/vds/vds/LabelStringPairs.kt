@@ -25,8 +25,8 @@ fun Map<Any, Any?>.labelStringPairs() = mutableListOf<Pair<Any, Any>>().also {
 }
 
 private fun MrzInfo.toMap() = mapOf(
-    Label.GIVEN_NAME to primaryIdentifier,
-    Label.SURNAME to secondaryIdentifier,
+    Label.SURNAME to primaryIdentifier,
+    Label.GIVEN_NAME to secondaryIdentifier,
     Label.DATE_OF_BIRTH to dateOfBirth.reformatMrzDate(),
     Label.DATE_OF_EXPIRY to dateOfExpiry.reformatMrzDate(),
     Label.DOCUMENT_NUMBER to documentNumber,
