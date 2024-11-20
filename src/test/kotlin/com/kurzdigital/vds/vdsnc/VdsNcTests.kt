@@ -3,7 +3,9 @@ package com.kurzdigital.vds.vdsnc
 import com.kurzdigital.vds.security.readCscaMasterList
 import com.kurzdigital.vds.security.verify
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
@@ -39,11 +41,12 @@ class VdsNcTests {
         assertEquals("nasopharyngeal", vdsNc.features[6].second)
         assertEquals("negative", vdsNc.features[7].second)
         assertEquals("molecular(PCR)", vdsNc.features[8].second)
-        assertEquals(
-            // The certificate is unknown because this is just a sample.
-            VerificationResult.SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN,
-            vdsNc.verify(trustAnchors!!),
-        )
+        val result = vdsNc.verify(trustAnchors!!)
+        // Check only signature because the certificate is unknown
+        // since this is just a sample.
+        assertTrue(result.signatureValid)
+        assertTrue(result.certificateNotExpired)
+        assertFalse(result.certificateKnown)
     }
 
     @Test
@@ -68,11 +71,12 @@ class VdsNcTests {
         assertEquals("UTO", vdsNc.features[13].second)
         assertEquals("VC87540", vdsNc.features[14].second)
         assertEquals("RIVM", vdsNc.features[15].second)
-        assertEquals(
-            // The certificate is unknown because this is just a sample.
-            VerificationResult.SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN,
-            vdsNc.verify(trustAnchors!!),
-        )
+        val result = vdsNc.verify(trustAnchors!!)
+        // Check only signature because the certificate is unknown
+        // since this is just a sample.
+        assertTrue(result.signatureValid)
+        assertTrue(result.certificateNotExpired)
+        assertFalse(result.certificateKnown)
     }
 
     @Test
@@ -92,10 +96,7 @@ class VdsNcTests {
         assertEquals("AUS", vdsNc.features[8].second)
         assertEquals("300157P", vdsNc.features[9].second)
         assertEquals("General Practitioner", vdsNc.features[10].second)
-        assertEquals(
-            VerificationResult.SIGNATURE_VALID,
-            vdsNc.verify(trustAnchors!!),
-        )
+        assertTrue(vdsNc.verify(trustAnchors!!).isValid())
     }
 
     private fun readAndParse(

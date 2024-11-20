@@ -134,11 +134,7 @@ fun parseAndVerifyVdsNc(
 	}
 
 	// Verify with your set of trust anchors.
-	return when (vdsNc.verify(trustAnchors)) {
-		SIGNATURE_INVALID -> false
-		SIGNATURE_VALID -> true
-		SIGNATURE_VALID_BUT_CERTIFICATE_UNKNOWN -> false
-	}
+	return vdsNc.verify(trustAnchors).isValid()
 }
 ```
 
