@@ -4,6 +4,7 @@ import com.kurzdigital.vds.Label
 import com.kurzdigital.vds.security.CertificateListIterator
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertTrue
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -57,7 +58,7 @@ class VdsTests {
             vds.features[Label.MRZ].toString(),
         )
         assertEquals("ABC123456DEF", vds.features[Label.ARZ])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -69,7 +70,7 @@ class VdsTests {
             "I<GBR6525845096<<<<<<<<<<<<<<<7008038M2201018USA<<<<<<<<<<<6SUPAMANN<<MARY<<<<<<<<<<<<<<<<",
             vds.features[Label.MRZ].toString(),
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -136,7 +137,7 @@ class VdsTests {
                 vds.features[Label.BIOMETRICS] as ByteArray,
             ),
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -149,7 +150,7 @@ class VdsTests {
             vds.features[Label.MRZ].toString(),
         )
         assertEquals("UFO001979", vds.features[Label.PASSPORT_NUMBER])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -161,7 +162,7 @@ class VdsTests {
         assertEquals("Perschweiß", vds.features[Label.SURNAME])
         assertEquals("Oscar", vds.features[Label.GIVEN_NAME])
         assertEquals("Jâcobénidicturius", vds.features[Label.BIRTH_NAME])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -189,7 +190,7 @@ class VdsTests {
             "53175HEINEMANNSTR11",
             vds.features[Label.RESIDENTIAL_ADDRESS],
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -200,7 +201,7 @@ class VdsTests {
         assertEquals("PA5500K11", vds.features[Label.DOCUMENT_NUMBER])
         assertEquals("03359010", vds.features[Label.MUNICIPALITY_NUMBER])
         assertEquals("21614", vds.features[Label.POSTAL_CODE])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -245,7 +246,7 @@ class VdsTests {
             "Thu Jan 20 11:38:00 CET 2022",
             vds.features[Label.TIMESTAMP].toString(),
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -257,7 +258,7 @@ class VdsTests {
         assertEquals("Value 2️⃣", vds.features["Header 2️⃣"])
         assertEquals("www.kurzdigital.com", vds.features["BlaBliBlu Header"])
         assertEquals("", vds.features[""])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -272,7 +273,7 @@ class VdsTests {
         assertEquals("Ford Ranger", vds.features[Label.CAR_MODEL])
         assertEquals("White", vds.features[Label.CAR_COLOR])
         assertEquals("Taban Sibonelo", vds.features[Label.OWNER])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -311,7 +312,7 @@ class VdsTests {
             "https://www.trustconcept.com",
             vds.features[Label.CONTACT_DETAILS_WEBSITE],
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -342,7 +343,7 @@ class VdsTests {
             vds.features[Label.TIMESTAMP].toString(),
         )
         assertEquals(1, (vds.features[Label.VALIDITY] as Byte).toInt())
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -363,7 +364,7 @@ class VdsTests {
         assertEquals("by air", vds.features[Label.SHIPMENT_ROUTE])
         assertEquals("Multifoil Sdn Bhd 5 Jalan 4/4C", vds.features[Label.IMPORTER])
         assertEquals("t1p.de/0w8z", vds.features[Label.LINK])
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     @Test
@@ -549,7 +550,7 @@ class VdsTests {
                 vds.features[Label.BIOMETRICS] as ByteArray,
             ),
         )
-        assertEquals(true, vds.verify())
+        assertTrue(vds.verify())
     }
 
     private fun readAndParse(
@@ -560,5 +561,5 @@ class VdsTests {
 
     private fun Vds.verify() = verify(
         CertificateListIterator(certificates),
-    )
+    ).isValid()
 }

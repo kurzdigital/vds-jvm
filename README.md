@@ -100,7 +100,7 @@ fun parseAndVerifyVds(
 	// Verify with your list of certificates.
 	return vds.verify(
 		CertificateListIterator(certificates)
-	)
+	).isValid()
 }
 ```
 

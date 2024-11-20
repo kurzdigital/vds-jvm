@@ -18,23 +18,6 @@ fun ByteArray.sha256(): ByteArray = MessageDigest.getInstance("SHA-256").run {
 }
 
 fun verify(
-    certificateIterator: CertificateIterator,
-    sha256: ByteArray,
-    signature: ByteArray,
-    date: Date = Date(),
-): Boolean {
-    while (true) {
-        val certificate = certificateIterator.next() ?: break
-        if (certificate.validAt(date) &&
-            verify(certificate.publicKey, sha256, signature)
-        ) {
-            return true
-        }
-    }
-    return false
-}
-
-fun verify(
     publicKey: PublicKey,
     sha256: ByteArray,
     signature: ByteArray,
